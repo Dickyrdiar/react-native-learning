@@ -28,7 +28,7 @@ const BottomTabNavigator = () => (
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Settings"
         component={Setting}
         options={{
@@ -36,7 +36,7 @@ const BottomTabNavigator = () => (
             <MaterialCommunityIcons name="settings" color={color} size={size} />
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   </NavigationContainer>
 );

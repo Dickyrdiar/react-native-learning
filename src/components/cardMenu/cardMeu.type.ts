@@ -1,4 +1,7 @@
 export interface ParsingProps {
   title: string;
-  children: string;
+  time: any;
+  tags: Array<string[]>;
+  user: string;
+  chidren: string;
 }

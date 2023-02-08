@@ -1,12 +1,24 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import Constants from 'expo-constants';
-import CardMenu from '../components/cardMenu';
+import CardMenu, {Tag} from '../components/cardMenu';
 
 function IndexApp(): JSX.Element {
+  console.log('data', dataDummy);
+
   return (
     <View style={style.container}>
-      <CardMenu title="this is string" children="string is good" />
+      {dataDummy.map(val => {
+        return (
+          <CardMenu
+            title={val.title}
+            time={val.time}
+            user={val.user}
+            chidren={val.children}
+            tags={[]}
+          />
+        );
+      })}
     </View>
   );
 }
@@ -15,7 +27,7 @@ const style = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#f7f7f7',
     padding: 8,
   },
 
@@ -28,3 +40,13 @@ const style = StyleSheet.create({
 });
 
 export default IndexApp;
+
+const dataDummy = [
+  {
+    title: 'Streamlining Constructors in Functional React Components',
+    children: 'this is children for free ',
+    time: '10:30',
+    tag: [{tagname: 'Javascript'}, {tagname: 'react'}, {tagname: 'vue'}],
+    user: 'Fahni',
+  },
+];
