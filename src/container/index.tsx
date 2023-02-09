@@ -1,21 +1,20 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import Constants from 'expo-constants';
-import CardMenu, {Tag} from '../components/cardMenu';
+import CardMenu from '../components/cardMenu';
 
 function IndexApp(): JSX.Element {
-  console.log('data', dataDummy);
-
   return (
     <View style={style.container}>
       {dataDummy.map(val => {
         return (
           <CardMenu
             title={val.title}
-            time={val.time}
-            user={val.user}
+            time={val.readable_publish_date}
+            user={[val.user]}
             chidren={val.children}
-            tags={[]}
+            tags={[val.flare_tag]} // tags={[val.flare_tag]}
+            tag_list={val.tag_list}
           />
         );
       })}
@@ -46,7 +45,24 @@ const dataDummy = [
     title: 'Streamlining Constructors in Functional React Components',
     children: 'this is children for free ',
     time: '10:30',
-    tag: [{tagname: 'Javascript'}, {tagname: 'react'}, {tagname: 'vue'}],
-    user: 'Fahni',
+    flare_tag: {
+      name: 'discuss',
+      bg_color_hex: '#1ad643',
+      text_color_hex: '#FFFFFF',
+    },
+    user: {
+      name: 'Erin Bensinger',
+      username: 'erinposting',
+      twitter_username: 'erinposting',
+      github_username: 'erinb223',
+      user_id: 494502,
+      website_url: null,
+      profile_image:
+        'https://res.cloudinary.com/practicaldev/image/fetch/s--6nTNzTEG--/c_fill,f_auto,fl_progressive,h_640,q_auto,w_640/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/494502/2d4eb07b-a07a-46f9-91cd-1b98d862a13c.png',
+      profile_image_90:
+        'https://res.cloudinary.com/practicaldev/image/fetch/s--VG4G50pa--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/user/profile_image/494502/2d4eb07b-a07a-46f9-91cd-1b98d862a13c.png',
+    },
+    readable_publish_date: 'Feb 6',
+    tag_list: ['devdiscuss', 'career', 'beginners'],
   },
 ];
