@@ -1,7 +1,25 @@
 export interface ParsingProps {
   title: string;
   time: any;
-  tags: Array<string[]>;
-  user: string;
+  tags: propsTags[];
+  user: userProfile[];
   chidren: string;
+  tag_list: string[];
+}
+
+interface propsTags {
+  name: string;
+  bg_color_hex: string;
+  text_color_hex: string;
+}
+
+interface userProfile {
+  name: string;
+  username: string;
+  twitter_username: string;
+  github_username: string;
+  user_id: number;
+  website_url: null | string;
+  profile_image: string;
+  profile_image_90: string;
 }
