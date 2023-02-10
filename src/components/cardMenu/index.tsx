@@ -1,17 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, Text, Image} from 'react-native';
-import {ParsingProps} from './cardMenu.type';
+import {ParsingProps} from '../../lib/TypeData/cardMenu.type';
 import {Style} from './CardStyle';
 const IconSave = require('../../assets/icon/MR.png');
 
 function CardMenu({
   title,
   time,
-  tags,
   user,
   tag_list,
   cover_image,
+  positive_reactions_count,
+  comments_count,
+  public_reactions_count,
 }: ParsingProps): JSX.Element {
   const newArray: {name: string}[] = tag_list.map(val => ({
     name: val,
@@ -56,7 +58,7 @@ function CardMenu({
             padding: 10,
           }}>
           <Text style={Style.tagText}>
-            20
+            {comments_count}
             <Image
               style={{
                 width: 15,
@@ -66,7 +68,7 @@ function CardMenu({
             />
           </Text>
           <Text style={Style.tagText}>
-            45
+            {positive_reactions_count}
             <Image
               style={{
                 width: 15,
@@ -85,7 +87,7 @@ function CardMenu({
               justifyContent: 'space-between',
               padding: 10,
             }}>
-            <Text style={{marginTop: -2}}>30</Text>
+            <Text style={{marginTop: -2}}>{public_reactions_count}</Text>
             <Image
               source={require('../../assets/icon/MR.png')}
               style={{
