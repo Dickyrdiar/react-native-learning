@@ -10,6 +10,20 @@ export const Style = StyleSheet.create({
     shadowOffset: {width: 0, height: 5},
     elevation: 5,
     marginVertical: 10,
+    borderRadius: 10,
+  },
+
+  pictureApplication: {
+    flexDirection: 'row',
+    pading: 5,
+    marginTop: 17,
+  },
+
+  imagePost: {
+    width: 80,
+    height: 60,
+    resizeMode: 'stretch',
+    borderRadius: 10,
   },
 
   profilePost: {
@@ -24,10 +38,11 @@ export const Style = StyleSheet.create({
   },
 
   title: {
-    fontSize: 22,
+    fontSize: 15,
     fontWeight: 'bold',
     marginBottom: 10,
     color: 'black',
+    marginLeft: 18,
   },
 
   time: {
@@ -53,7 +68,7 @@ export const Style = StyleSheet.create({
   readable_publish_date: {
     fontSize: 10,
     marginTop: -10,
-    marginLeft: 35,
+    marginLeft: 20,
   },
 
   commentContainer: {
@@ -74,5 +89,13 @@ export const Style = StyleSheet.create({
     display: 'flex',
     padding: 5,
     marginTop: -7,
+    flexDirection: 'row',
+  },
+
+  Divider: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#ddd',
+    marginVertical: 10,
   },
 });

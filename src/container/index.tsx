@@ -1,23 +1,26 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
 
 function IndexApp(): JSX.Element {
   return (
     <View style={style.container}>
-      {dataDummy.map(val => {
-        return (
-          <CardMenu
-            title={val.title}
-            time={val.readable_publish_date}
-            user={[val.user]}
-            chidren={val.children}
-            tags={[val.flare_tag]} // tags={[val.flare_tag]}
-            tag_list={val.tag_list}
-          />
-        );
-      })}
+      <ScrollView style={style.scrollView}>
+        {dataDummy.map(val => {
+          return (
+            <CardMenu
+              title={val.title}
+              time={val.readable_publish_date}
+              user={[val.user]}
+              chidren={val.children}
+              tags={[val.flare_tag]} // tags={[val.flare_tag]}
+              tag_list={val.tag_list}
+              cover_image={val.cover_image}
+            />
+          );
+        })}
+      </ScrollView>
     </View>
   );
 }
@@ -35,6 +38,10 @@ const style = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+
+  scrollView: {
+    marginHorizontal: 10,
   },
 });
 
@@ -64,5 +71,7 @@ const dataDummy = [
     },
     readable_publish_date: 'Feb 6',
     tag_list: ['devdiscuss', 'career', 'beginners'],
+    cover_image:
+      'https://res.cloudinary.com/practicaldev/image/fetch/s--oj6lVp0W--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7brex760nh4niita1b8j.jpg',
   },
 ];
