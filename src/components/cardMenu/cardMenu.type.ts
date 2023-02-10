@@ -5,6 +5,7 @@ export interface ParsingProps {
   user: userProfile[];
   chidren: string;
   tag_list: string[];
+  cover_image: string;
 }
 
 interface propsTags {
