@@ -1,8 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {ParsingProps} from './cardMenu.type';
 import {Style} from './CardStyle';
-import Icon from 'react-native-vector-icons/Ionicons';
+const IconSave = require('../../assets/icon/MR.png');
 
 function CardMenu({
   title,
@@ -49,17 +50,50 @@ function CardMenu({
 
       <View style={Style.commentContainer}>
         <View
-          // eslint-disable-next-line react-native/no-inline-styles
           style={{
+            flex: 2,
             flexDirection: 'row',
+            padding: 10,
           }}>
-          <Text style={Style.tagText}>Comment</Text>
-          <Text style={Style.tagText}>Like</Text>
+          <Text style={Style.tagText}>
+            20
+            <Image
+              style={{
+                width: 15,
+                height: 15,
+              }}
+              source={require('../../assets/icon/bubble-chat.png')}
+            />
+          </Text>
+          <Text style={Style.tagText}>
+            45
+            <Image
+              style={{
+                width: 15,
+                height: 15,
+              }}
+              source={require('../../assets/icon/heart.png')}
+            />
+          </Text>
         </View>
 
         <Text style={Style.tagText}>
-          save
-          <Icon name="save" size={14} color="#4F8EF7" />
+          <View
+            style={{
+              flex: 2,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              padding: 10,
+            }}>
+            <Text style={{marginTop: -2}}>30</Text>
+            <Image
+              source={require('../../assets/icon/MR.png')}
+              style={{
+                width: 15,
+                height: 15,
+              }}
+            />
+          </View>
         </Text>
       </View>
     </View>
