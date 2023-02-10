@@ -6,6 +6,9 @@ export interface ParsingProps {
   chidren: string;
   tag_list: string[];
   cover_image: string;
+  comments_count: number;
+  positive_reactions_count: number;
+  public_reactions_count: number;
 }
 
 interface propsTags {

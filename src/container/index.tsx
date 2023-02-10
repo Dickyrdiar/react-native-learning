@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
 
@@ -9,15 +9,20 @@ function IndexApp(): JSX.Element {
       <ScrollView style={style.scrollView}>
         {dataDummy.map(val => {
           return (
-            <CardMenu
-              title={val.title}
-              time={val.readable_publish_date}
-              user={[val.user]}
-              chidren={val.children}
-              tags={[val.flare_tag]} // tags={[val.flare_tag]}
-              tag_list={val.tag_list}
-              cover_image={val.cover_image}
-            />
+            <TouchableOpacity>
+              <CardMenu
+                title={val.title}
+                time={val.readable_publish_date}
+                user={[val.user]}
+                chidren={val.children}
+                tags={[val.flare_tag]}
+                tag_list={val.tag_list}
+                cover_image={val.cover_image}
+                comments_count={val.comments_count}
+                positive_reactions_count={val.positive_reactions_count}
+                public_reactions_count={val.public_reactions_count}
+              />
+            </TouchableOpacity>
           );
         })}
       </ScrollView>
@@ -73,5 +78,17 @@ const dataDummy = [
     tag_list: ['devdiscuss', 'career', 'beginners'],
     cover_image:
       'https://res.cloudinary.com/practicaldev/image/fetch/s--oj6lVp0W--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7brex760nh4niita1b8j.jpg',
+    organization: {
+      name: 'Codédex',
+      username: 'codedex',
+      slug: 'codedex',
+      profile_image:
+        'https://res.cloudinary.com/practicaldev/image/fetch/s--UZ1cWjjV--/c_fill,f_auto,fl_progressive,h_640,q_auto,w_640/https://dev-to-uploads.s3.amazonaws.com/uploads/organization/profile_image/5909/a4f43064-b4f0-498d-ad0f-eb0c998efe35.png',
+      profile_image_90:
+        'https://res.cloudinary.com/practicaldev/image/fetch/s--jMVWcKoA--/c_fill,f_auto,fl_progressive,h_90,q_auto,w_90/https://dev-to-uploads.s3.amazonaws.com/uploads/organization/profile_image/5909/a4f43064-b4f0-498d-ad0f-eb0c998efe35.png',
+    },
+    positive_reactions_count: 1,
+    comments_count: 0,
+    public_reactions_count: 1,
   },
 ];
