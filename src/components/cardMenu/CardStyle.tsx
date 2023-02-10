@@ -55,6 +55,7 @@ export const Style = StyleSheet.create({
     marginBottom: 10,
     color: 'black',
     marginLeft: 10,
+    marginTop: -4,
   },
 
   TagContainer: {
