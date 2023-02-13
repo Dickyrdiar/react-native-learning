@@ -4,12 +4,16 @@ import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
 
 function IndexApp(): JSX.Element {
+  const navigate = () => {
+    console.log('click');
+  };
+
   return (
     <View style={style.container}>
       <ScrollView style={style.scrollView}>
         {dataDummy.map(val => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={navigate}>
               <CardMenu
                 title={val.title}
                 time={val.readable_publish_date}
