@@ -1,19 +1,25 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
+import TagCarausel from '../components/tagCarousel/index';
 
 function IndexApp(): JSX.Element {
-  const navigate = () => {
-    console.log('click');
-  };
-
   return (
     <View style={style.container}>
+      <View style={style.Carouselcontainer}>
+        <TagCarausel tags={tags} />
+      </View>
       <ScrollView style={style.scrollView}>
         {dataDummy.map(val => {
           return (
-            <TouchableOpacity onPress={navigate}>
+            <TouchableOpacity>
               <CardMenu
                 title={val.title}
                 time={val.readable_publish_date}
@@ -51,6 +57,11 @@ const style = StyleSheet.create({
 
   scrollView: {
     marginHorizontal: 10,
+  },
+
+  Carouselcontainer: {
+    padding: 8,
+    flexDirection: 'row',
   },
 });
 
@@ -94,5 +105,68 @@ const dataDummy = [
     positive_reactions_count: 1,
     comments_count: 0,
     public_reactions_count: 1,
+  },
+];
+
+const tags = [
+  {
+    id: 6,
+    name: 'javascript',
+    bg_color_hex: '#f7df1e',
+    text_color_hex: '#000000',
+  },
+  {
+    id: 8,
+    name: 'webdev',
+    bg_color_hex: '#562765',
+    text_color_hex: '#ffffff',
+  },
+  {
+    id: 555,
+    name: 'beginners',
+    bg_color_hex: '#008335',
+    text_color_hex: '#FFFFFF',
+  },
+  {
+    id: 33,
+    name: 'programming',
+    bg_color_hex: '#890606',
+    text_color_hex: '#ffffff',
+  },
+  {
+    id: 297,
+    name: 'tutorial',
+    bg_color_hex: '#FEFFA5',
+    text_color_hex: '#b30047',
+  },
+  {
+    id: 125,
+    name: 'react',
+    bg_color_hex: '#222222',
+    text_color_hex: '#61DAF6',
+  },
+  {
+    id: 3371,
+    name: 'archlinux',
+    bg_color_hex: '#0099bd',
+    text_color_hex: '#FFFFFF',
+  },
+  {
+    id: 25,
+    name: 'python',
+    bg_color_hex: '#1E38BB',
+    text_color_hex: '#FFDF5B',
+  },
+  {
+    id: 44,
+    name: 'news',
+    bg_color_hex: '#111111',
+    text_color_hex: '#fff9ac',
+  },
+  {
+    id: 112,
+    name: 'productivity',
+    bg_color_hex: '#2A0798',
+    text_color_hex: '#C8F7C5',
   },
 ];

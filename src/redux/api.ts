@@ -1,6 +1,8 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
+// axios.defaults.baseURL = procces.env.API_DEV;
+
 interface ApiState {
   data: any;
   error: string | undefined;

@@ -1,10 +1,9 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import IndexApp from '../container';
+import IndexApp from '../screen';
 import {NavigationContainer} from '@react-navigation/native';
 import {StyleSheet} from 'react-native';
-import Setting from '../container/settings';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
@@ -24,7 +23,7 @@ const BottomTabNavigator = () => (
         component={IndexApp}
         options={{
           tabBarIcon: ({color, size}) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
+            <MaterialCommunityIcons name="iso-home" color={color} size={size} />
           ),
         }}
       />
