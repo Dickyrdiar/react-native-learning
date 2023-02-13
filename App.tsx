@@ -1,5 +1,4 @@
 import React from 'react';
-import {View} from 'react-native';
 import BottomNavigation from './src/navigation/navigation';
 
 function App(): JSX.Element {
