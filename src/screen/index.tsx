@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -10,10 +10,13 @@ import {
 import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
 import Tag from '../components/tagCarousel/index';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchApi} from '../redux/api';
 
 function IndexApp(): JSX.Element {
   const [selected, setSelected] = useState(0);
   const ScrollViewRef = useRef<ScrollView>(null);
+  const dispatch = useDispatch();
 
   const handleTagPress = (index: number) => {
     setSelected(index);
