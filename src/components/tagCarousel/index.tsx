@@ -1,28 +1,14 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import Carousel from 'react-native-snap-carousel';
-import {Tag, TagCarouselProps} from '../../lib/TypeData/tagCarousel.types';
-import {styles} from './TagCarousel.style';
+import {Text} from 'react-native';
+import {TagProps} from '../../lib/TypeData/tagCarousel.types';
+import {StyledView} from './TagCarousel.style';
 
-const TagCarousel: React.FC<TagCarouselProps> = ({tags}) => {
-  const _renderTag = ({item}: {item: Tag}) => {
-    return (
-      <View style={styles.tagContainer}>
-        <Text style={styles.tagText}>{item.name}</Text>
-      </View>
-    );
-  };
+const Tag = ({tag, selected, colro}: TagProps) => (
+  <StyledView aria-selected={selected}>
+    <StyledView>
+      <Text>{tag}</Text>
+    </StyledView>
+  </StyledView>
+);
 
-  return (
-    <Carousel
-      data={tags}
-      renderItem={_renderTag}
-      sliderWidth={300}
-      itemWidth={100}
-      inactiveSlideScale={0.95}
-      inactiveSlideOpacity={1}
-    />
-  );
-};
-
-export default TagCarousel;
+export default Tag;

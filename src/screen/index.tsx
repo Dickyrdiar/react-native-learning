@@ -1,20 +1,44 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {
   View,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
   Text,
+  Dimensions,
 } from 'react-native';
 import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
-import TagCarausel from '../components/tagCarousel/index';
+import Tag from '../components/tagCarousel/index';
 
 function IndexApp(): JSX.Element {
+  const [selected, setSelected] = useState(0);
+  const ScrollViewRef = useRef<ScrollView>(null);
+
+  const handleTagPress = (index: number) => {
+    setSelected(index);
+    ScrollViewRef.current?.scrollTo({
+      x: index * (Dimensions.get('window').width / 3),
+      y: 0,
+    });
+  };
+
   return (
     <View style={style.container}>
       <View style={style.Carouselcontainer}>
-        <TagCarausel tags={tags} />
+        <ScrollView
+          ref={ScrollViewRef}
+          horizontal
+          showsHorizontalScrollIndicator={false}>
+          {tags.map((tag, id) => (
+            <Tag
+              key={tag.id}
+              tag={tag.name}
+              selected={id === selected}
+              colro={tag.bg_color_hex}
+            />
+          ))}
+        </ScrollView>
       </View>
       <ScrollView style={style.scrollView}>
         {dataDummy.map(val => {

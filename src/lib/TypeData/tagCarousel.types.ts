@@ -1,9 +1,5 @@
-export interface Tag {
-  id: number;
-  name: string;
-  color: string;
-}
-
-export interface TagCarouselProps {
-  tags: Tag[];
-}
+export type TagProps = {
+  tag: string;
+  selected: boolean;
+  colro: string;
+};
