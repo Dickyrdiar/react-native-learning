@@ -6,10 +6,11 @@ export const StyledView = styled(View)`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: ${(props: TagProps) => props.colro};
-  padding: 5px 20px;
+  background-color: '#fffff';
+  padding: 5px;
   border-radius: 20px;
-  margin-right: 20px;
+  margin-right: 6px;
+  color: '#fffff';
 `;
 
 export const StyledText = styled(Text)`
