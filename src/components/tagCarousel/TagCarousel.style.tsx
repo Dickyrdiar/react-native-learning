@@ -1,15 +1,18 @@
-import {StyleSheet} from 'react-native';
+import {TagProps} from '../../lib/TypeData/tagCarousel.types';
+import styled from 'styled-components';
+import {View, Text} from 'react-native';
 
-export const styles = StyleSheet.create({
-  tagContainer: {
-    borderRadius: 20,
-    padding: 10,
-    textAlign: 'center',
-    marginRight: 10,
-  },
-  tagText: {
-    fontSize: 12,
-    fontWeight: '400',
-    textAlign: 'center',
-  },
-});
+export const StyledView = styled(View)`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props: TagProps) => props.colro};
+  padding: 5px 20px;
+  border-radius: 20px;
+  margin-right: 20px;
+`;
+
+export const StyledText = styled(Text)`
+  color: #030303;
+  font-size: 18px;
+`;
