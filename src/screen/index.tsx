@@ -12,11 +12,11 @@ import CardMenu from '../components/cardMenu';
 import Tag from '../components/tagCarousel/index';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchApi} from '../redux/api';
+import api from '../redux/api';
 
 function IndexApp(): JSX.Element {
   const [selected, setSelected] = useState(0);
   const ScrollViewRef = useRef<ScrollView>(null);
-  const dispatch = useDispatch();
 
   const handleTagPress = (index: number) => {
     setSelected(index);

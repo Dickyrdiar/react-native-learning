@@ -9,7 +9,7 @@ interface ApiState {
   loading: boolean;
 }
 
-const initialState: ApiState = {
+export const initialState: ApiState = {
   data: null,
   error: undefined,
   loading: false,
