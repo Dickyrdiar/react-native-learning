@@ -1,48 +1,40 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
+import {ParsingProps} from '../lib/TypeData/cardMenu.type';
 
-// axios.defaults.baseURL = procces.env.API_DEV;
-
-interface ApiState {
-  data: any;
-  error: string | undefined;
-  loading: boolean;
+interface ResponseState {
+  data: ParsingProps[];
+  status: 'idle' | 'loading' | 'failed';
+  error: null | undefined | string;
 }
 
-export const initialState: ApiState = {
-  data: null,
-  error: undefined,
-  loading: false,
+const initialState: ResponseState = {
+  data: [],
+  status: 'idle',
+  error: null,
 };
 
-export const fetchApi = createAsyncThunk('api/fetch', async (url: string) => {
-  const response = await axios.get(url);
+export const FetchApi = createAsyncThunk('api/article', async () => {
+  const response = await axios.get('https://dev.to/api/articles');
   return response.data;
 });
 
-const apiSlice = createSlice({
-  name: 'api',
+export const apiSlice = createSlice({
+  name: 'articles',
   initialState,
-  reducers: {
-    reset: state => initialState,
-  },
-
+  reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchApi.pending, state => {
-      state.loading = true;
-    });
-
-    builder.addCase(fetchApi.fulfilled, (state, action) => {
-      state.loading = false;
-      state.data = action.payload;
-      state.error = undefined;
-    });
-    builder.addCase(fetchApi.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
+    builder
+      .addCase(FetchApi.pending, state => {
+        state.status = 'loading';
+      })
+      .addCase(FetchApi.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.data = action.payload;
+      })
+      .addCase(FetchApi.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
   },
 });
-
-export const {reset} = apiSlice.actions;
-export default apiSlice.reducer;

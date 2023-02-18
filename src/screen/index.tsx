@@ -11,12 +11,18 @@ import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
 import Tag from '../components/tagCarousel/index';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchApi} from '../redux/api';
-import api from '../redux/api';
+import {RootState} from '../redux/store';
+import {apiSlice} from '../redux/api';
 
 function IndexApp(): JSX.Element {
   const [selected, setSelected] = useState(0);
   const ScrollViewRef = useRef<ScrollView>(null);
+  const dispatch = useDispatch();
+  const {data, status, error} = useSelector((state: RootState) => state.posts);
+
+  useEffect(() => {
+    dispatch(apiSlice());
+  }, []);
 
   const handleTagPress = (index: number) => {
     setSelected(index);
