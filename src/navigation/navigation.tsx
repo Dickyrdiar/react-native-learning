@@ -3,8 +3,10 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IndexApp from '../screen';
 import {NavigationContainer} from '@react-navigation/native';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Image} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import SavePosts from '../screen/SavePosts';
+import SearchPage from '../screen/searchPage';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +25,33 @@ const BottomTabNavigator = () => (
         component={IndexApp}
         options={{
           tabBarIcon: ({color, size}) => (
-            <MaterialCommunityIcons name="iso-home" color={color} size={size} />
+            <MaterialCommunityIcons name="ios-home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Save"
+        component={SavePosts}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons
+              name="ios-bookmark"
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchPage}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons
+              name="ios-search"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />
