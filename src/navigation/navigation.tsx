@@ -2,13 +2,32 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IndexApp from '../screen';
+import SearchPage from '../screen/searchPage';
 import {NavigationContainer} from '@react-navigation/native';
 import {StyleSheet, Image} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SavePosts from '../screen/SavePosts';
-import SearchPage from '../screen/searchPage';
+// import * as iconSearch from '../assets/icon/Button/Search.png';
+import {renderIcon} from './renderIcon';
+import {Profile} from '../screen/profile';
 
 const Tab = createBottomTabNavigator();
+
+// const SearchIcon = () => {
+//   <Image
+//     source={require('../assets/icon/Button/Search.png')}
+//     style={{width: 20, height: 20}}
+//   />;
+// };
+
+function SearchIcon(): JSX.Element {
+  return (
+    <Image
+      source={require('../assets/icon/Button/Search.png')}
+      style={{width: 20, height: 20}}
+    />
+  );
+}
 
 const BottomTabNavigator = () => (
   <NavigationContainer>
@@ -46,13 +65,15 @@ const BottomTabNavigator = () => (
         name="Search"
         component={SearchPage}
         options={{
-          tabBarIcon: ({color, size}) => (
-            <MaterialCommunityIcons
-              name="ios-search"
-              color={color}
-              size={size}
-            />
-          ),
+          tabBarIcon: ({color}) => <SearchIcon />,
+        }}
+      />
+
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({color}) => <SearchIcon />,
         }}
       />
     </Tab.Navigator>

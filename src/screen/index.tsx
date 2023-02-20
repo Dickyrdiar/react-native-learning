@@ -31,17 +31,15 @@ function IndexApp(): JSX.Element {
           horizontal
           showsHorizontalScrollIndicator={false}>
           {tags.map((tag, id) => (
-            <TouchableOpacity>
-              <Tag
-                key={tag.id}
-                tag={tag.name}
-                selected={id === selected}
-                colro={tag.bg_color_hex}
-                onClick={function (): void {
-                  throw new Error('Function not implemented.');
-                }}
-              />
-            </TouchableOpacity>
+            <Tag
+              key={tag.id}
+              tag={tag.name}
+              selected={id === selected}
+              colro={tag.bg_color_hex}
+              onClick={function (): void {
+                throw new Error('Function not implemented.');
+              }}
+            />
           ))}
         </ScrollView>
       </View>
