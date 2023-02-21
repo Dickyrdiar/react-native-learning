@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
 import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -5,16 +6,16 @@ import IndexApp from '../screen';
 import SearchPage from '../screen/searchPage';
 import {NavigationContainer} from '@react-navigation/native';
 import {StyleSheet, Image} from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SavePosts from '../screen/SavePosts';
-// import * as iconSearch from '../assets/icon/Button/Search.png';
 import {Profile} from '../screen/profile';
 
 const Tab = createBottomTabNavigator();
 
-function BottomTabNavigator(isLoggenIn: boolean): JSX.Element {
-  // const [isLogin, setIsLogin] = useState(false);
+interface LosginProps {
+  isLoggedIn?: boolean;
+}
 
+function BottomTabNavigator({isLoggedIn}: LosginProps): JSX.Element {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -50,7 +51,7 @@ function BottomTabNavigator(isLoggenIn: boolean): JSX.Element {
           }}
         />
         <Tab.Screen
-          name="Search"
+          name="Explore"
           component={SearchPage}
           options={{
             tabBarIcon: ({color}) => (
