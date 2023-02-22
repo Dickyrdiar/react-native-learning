@@ -10,8 +10,10 @@ import {
 import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
 import Tag from '../components/tagCarousel/index';
+import {useNavigation, NavigationContainer} from '@react-navigation/native';
 
 function IndexApp(): JSX.Element {
+  const navigation = useNavigation();
   const [selected, setSelected] = useState(0);
   const ScrollViewRef = useRef<ScrollView>(null);
 
@@ -21,6 +23,10 @@ function IndexApp(): JSX.Element {
       x: index * (Dimensions.get('window').width / 3),
       y: 0,
     });
+  };
+
+  const handleNavigationToScreen = () => {
+    navigation.navigate('detailPost');
   };
 
   return (
