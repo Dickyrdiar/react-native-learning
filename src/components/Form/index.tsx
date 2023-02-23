@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {TextInput, View, Text, StyleSheet} from 'react-native';
 
 interface FieldInputProps {
-  label: string;
+  label?: string;
   placeholder?: string;
   secureTextEntry?: boolean;
-  onChangeText: (text: string) => void;
+  onChangeText?: (text: string) => void;
 }
 
 export const FieldInput: React.FC<FieldInputProps> = ({
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     paddingHorizontal: 8,
+    width: '100%',
   },
   inputFocused: {
     height: 40,
