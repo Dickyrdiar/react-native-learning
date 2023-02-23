@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -11,11 +11,22 @@ import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
 import Tag from '../components/tagCarousel/index';
 import {useNavigation, NavigationContainer} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchData} from '../redux/fetching';
+import {ThunkDispatch} from 'redux-thunk';
 
 function IndexApp({navigation}: any): JSX.Element {
   // const navigation = useNavigation();
   const [selected, setSelected] = useState(0);
   const ScrollViewRef = useRef<ScrollView>(null);
+  const {data, isLoading, error} = useSelector((state: any) => state.data);
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
+
+  console.log(data, 'this is data', isLoading);
 
   const handleTagPress = (index: number) => {
     setSelected(index);

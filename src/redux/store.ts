@@ -1,8 +1,8 @@
 import {configureStore} from '@reduxjs/toolkit';
-import blogReducer from './api';
+import {dataSlice} from './fetching';
 
 export const store = configureStore({
   reducer: {
-    blog: blogReducer,
+    data: dataSlice.reducer,
   },
 });
