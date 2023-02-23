@@ -13,12 +13,10 @@ function SearchPage(): JSX.Element {
       <View style={style.container}>
         <View style={style.searchFormPosition}>
           <FieldInput
-            // label="Explore"
             placeholder="search something"
-            onChangeText={function (text: string): void {
-              throw new Error('Function not implemented.');
-            }}
-            label={''}
+            // onChangeText={function (text: string): void {
+            //   throw new Error('Function not implemented.');
+            // }}
           />
         </View>
         {/* <Text>this is Search page</Text> */}
@@ -57,9 +55,9 @@ const style = StyleSheet.create({
   },
 
   searchFormPosition: {
-    margin: 7,
     marginTop: 8,
-    width: '70%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   searchForm: {

@@ -12,8 +12,8 @@ import CardMenu from '../components/cardMenu';
 import Tag from '../components/tagCarousel/index';
 import {useNavigation, NavigationContainer} from '@react-navigation/native';
 
-function IndexApp(): JSX.Element {
-  const navigation = useNavigation();
+function IndexApp({navigation}: any): JSX.Element {
+  // const navigation = useNavigation();
   const [selected, setSelected] = useState(0);
   const ScrollViewRef = useRef<ScrollView>(null);
 
@@ -26,7 +26,7 @@ function IndexApp(): JSX.Element {
   };
 
   const handleNavigationToScreen = () => {
-    navigation.navigate('detailPost');
+    navigation.navigate('detailScreen');
   };
 
   return (
@@ -52,7 +52,7 @@ function IndexApp(): JSX.Element {
       <ScrollView style={style.scrollView}>
         {dataDummy.map(val => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleNavigationToScreen}>
               <CardMenu
                 title={val.title}
                 time={val.readable_publish_date}
