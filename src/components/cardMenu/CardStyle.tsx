@@ -64,6 +64,7 @@ export const Style = StyleSheet.create({
     marginTop: -7,
     marginRight: 44,
     flexDirection: 'row',
+    width: '70%',
   },
 
   readable_publish_date: {
