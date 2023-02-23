@@ -6,7 +6,7 @@ import {store} from './src/redux/store';
 function App(): JSX.Element {
   return (
     <Provider store={store}>
-      <BottomNavigation />;
+      <BottomNavigation />
     </Provider>
   );
 }

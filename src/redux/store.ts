@@ -1,8 +1,8 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {apiSlice} from './api';
+import {dataSlice} from './fetching';
 
 export const store = configureStore({
   reducer: {
-    articles: apiSlice.reducer,
+    data: dataSlice.reducer,
   },
 });
