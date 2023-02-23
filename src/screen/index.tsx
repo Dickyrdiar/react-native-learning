@@ -10,11 +10,13 @@ import {
 import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
 import Tag from '../components/tagCarousel/index';
+import {useNavigation, NavigationContainer} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchData} from '../redux/fetching';
 import {ThunkDispatch} from 'redux-thunk';
 
-function IndexApp(): JSX.Element {
+function IndexApp({navigation}: any): JSX.Element {
+  // const navigation = useNavigation();
   const [selected, setSelected] = useState(0);
   const ScrollViewRef = useRef<ScrollView>(null);
   const {data, isLoading, error} = useSelector((state: any) => state.data);
@@ -34,6 +36,10 @@ function IndexApp(): JSX.Element {
     });
   };
 
+  const handleNavigationToScreen = () => {
+    navigation.navigate('detailScreen');
+  };
+
   return (
     <View style={style.container}>
       <View style={style.Carouselcontainer}>
@@ -47,6 +53,9 @@ function IndexApp(): JSX.Element {
               tag={tag.name}
               selected={id === selected}
               colro={tag.bg_color_hex}
+              onClick={function (): void {
+                throw new Error('Function not implemented.');
+              }}
             />
           ))}
         </ScrollView>
@@ -54,7 +63,7 @@ function IndexApp(): JSX.Element {
       <ScrollView style={style.scrollView}>
         {dataDummy.map(val => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleNavigationToScreen}>
               <CardMenu
                 title={val.title}
                 time={val.readable_publish_date}

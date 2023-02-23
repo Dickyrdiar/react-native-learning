@@ -3,7 +3,6 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {ParsingProps} from '../../lib/TypeData/cardMenu.type';
 import {Style} from './CardStyle';
-const IconSave = require('../../assets/icon/MR.png');
 
 function CardMenu({
   title,
