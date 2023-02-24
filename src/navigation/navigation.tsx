@@ -8,6 +8,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {StyleSheet, Image} from 'react-native';
 import SavePosts from '../screen/SavePosts';
 import {Profile} from '../screen/profile';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import ProfilePicture from '../navigation/navigatePerScreen/image';
 
 const Tab = createBottomTabNavigator();
 
@@ -67,10 +69,13 @@ function BottomTabNavigator({isLoggedIn}: LosginProps): JSX.Element {
           name="Profile"
           component={Profile}
           options={{
-            tabBarIcon: ({color}) => (
-              <Image
-                source={require('../assets/icon/Button/Bookmark.png')}
-                style={{width: 26, height: 26}}
+            tabBarIcon: ({focused}) => (
+              <ProfilePicture
+                imageUrl={
+                  focused
+                    ? 'https://example.com/profile.png'
+                    : 'https://example.com/default-profile.png'
+                }
               />
             ),
           }}

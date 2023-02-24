@@ -1853,17 +1853,10 @@
     "color" "^4.2.3"
     "warn-once" "^0.1.0"
 
-<<<<<<< HEAD
-"@reduxjs/toolkit@^1.9.3":
+"@reduxjs/toolkit@^1.9.2":
   "integrity" "sha512-GU2TNBQVofL09VGmuSioNPQIu6Ml0YLf4EJhgj0AvBadRlCGzUWet8372LjvO4fqKZF2vH1xU0htAa7BrK9pZg=="
   "resolved" "https://registry.npmjs.org/@reduxjs/toolkit/-/toolkit-1.9.3.tgz"
   "version" "1.9.3"
-=======
-"@reduxjs/toolkit@^1.9.2":
-  "integrity" "sha512-5ZAZ7hwAKWSii5T6NTPmgIBUqyVdlDs+6JjThz6J6dmHLDm6zCzv2OjHIFAi3Vvs1qjmXU0bm6eBojukYXjVMQ=="
-  "resolved" "https://registry.npmjs.org/@reduxjs/toolkit/-/toolkit-1.9.2.tgz"
-  "version" "1.9.2"
->>>>>>> slicing
   dependencies:
     "immer" "^9.0.16"
     "redux" "^4.2.0"
@@ -1991,10 +1984,10 @@
   "resolved" "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.11.tgz"
   "version" "7.0.11"
 
-"@types/node@*":
-  "integrity" "sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA=="
-  "resolved" "https://registry.npmjs.org/@types/node/-/node-18.11.18.tgz"
-  "version" "18.11.18"
+"@types/node@*", "@types/node@^18.14.0":
+  "integrity" "sha512-5EWrvLmglK+imbCJY0+INViFWUHg1AHel1sq4ZVSfdcNqGy9Edv3UB9IIzzg+xPaUcAgZYcfVs2fBcwDeZzU0A=="
+  "resolved" "https://registry.npmjs.org/@types/node/-/node-18.14.0.tgz"
+  "version" "18.14.0"
 
 "@types/prettier@^2.1.5":
   "integrity" "sha512-KufADq8uQqo1pYKVIYzfKbJfBAc0sOeXqGbFaSpv8MRmC/zXgowNZmFcbngndGk922QDmOASEXUZCaY48gs4cg=="
