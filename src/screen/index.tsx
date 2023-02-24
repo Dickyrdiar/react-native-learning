@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
@@ -24,6 +25,7 @@ function IndexApp({navigation}: any): JSX.Element {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
   console.log('data', data);
+  console.log('loading', isLoading);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -42,8 +44,10 @@ function IndexApp({navigation}: any): JSX.Element {
   // };
 
   // if (isLoading) {
-  //   return <ActivityIndicatorBase size="large" />;
+  //   return <ActivityIndicatorBase />;
   // }
+
+  console.log('data', data.length <= 0);
 
   return (
     <View style={style.container}>
@@ -67,22 +71,28 @@ function IndexApp({navigation}: any): JSX.Element {
       </View>
       <ScrollView style={style.scrollView} horizontal={true}>
         {data?.map(val => {
-          return (
-            <TouchableOpacity>
-              <CardMenu
-                title={val.title}
-                time={val.readable_publish_date}
-                user={[val.user]}
-                chidren={val.children}
-                tags={[val.flare_tag]}
-                tag_list={val.tag_list}
-                cover_image={val.cover_image}
-                comments_count={val.comments_count}
-                positive_reactions_count={val.positive_reactions_count}
-                public_reactions_count={val.public_reactions_count}
-              />
-            </TouchableOpacity>
-          );
+          {
+            data.length <= 0 ? (
+              <TouchableOpacity>
+                <CardMenu
+                  title={val.title}
+                  time={val.readable_publish_date}
+                  user={[val.user]}
+                  chidren={val.children}
+                  tags={[val.flare_tag]}
+                  tag_list={val.tag_list}
+                  cover_image={val.cover_image}
+                  comments_count={val.comments_count}
+                  positive_reactions_count={val.positive_reactions_count}
+                  public_reactions_count={val.public_reactions_count}
+                />
+              </TouchableOpacity>
+            ) : (
+              <View style={style.TextError}>
+                <Text>this is null</Text>
+              </View>
+            );
+          }
         })}
       </ScrollView>
     </View>
@@ -102,6 +112,13 @@ const style = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+
+  TextError: {
+    fontSize: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'black',
   },
 
   scrollView: {

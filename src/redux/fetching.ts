@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {ParsingProps} from '../lib/TypeData/cardMenu.type';
+import {fetchSomeData} from './api';
 
 interface myState {
   data: ParsingProps[];
