@@ -1,4 +1,3 @@
-/* eslint-disable no-lone-blocks */
 import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
@@ -43,9 +42,13 @@ function IndexApp({navigation}: any): JSX.Element {
   //   navigation.navigate('detailScreen');
   // };
 
-  // if (isLoading) {
-  //   return <ActivityIndicatorBase />;
-  // }
+  if (isLoading) {
+    return (
+      <>
+        <Text>loading.....</Text>
+      </>
+    );
+  }
 
   console.log('data', data.length <= 0);
 
@@ -70,9 +73,9 @@ function IndexApp({navigation}: any): JSX.Element {
         </ScrollView>
       </View>
       <ScrollView style={style.scrollView} horizontal={true}>
-        {data?.map(val => {
-          {
-            data.length <= 0 ? (
+        {data.length >= 0 ? (
+          <>
+            {data?.map(val => (
               <TouchableOpacity>
                 <CardMenu
                   title={val.title}
@@ -87,13 +90,11 @@ function IndexApp({navigation}: any): JSX.Element {
                   public_reactions_count={val.public_reactions_count}
                 />
               </TouchableOpacity>
-            ) : (
-              <View style={style.TextError}>
-                <Text>this is null</Text>
-              </View>
-            );
-          }
-        })}
+            ))}
+          </>
+        ) : (
+          <View>this is empty</View>
+        )}
       </ScrollView>
     </View>
   );
