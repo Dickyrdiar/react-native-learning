@@ -12,7 +12,9 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({imageUrl}) => {
   return (
     <Image
       source={
-        isLoggedIn ? {uri: imageUrl} : require('../assets/default-profile.png')
+        isLoggedIn
+          ? {uri: imageUrl}
+          : require('../../assets/icon/Button/user_fix.png')
       }
     />
   );

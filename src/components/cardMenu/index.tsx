@@ -35,7 +35,9 @@ function CardMenu({
       </View>
 
       <View style={Style.pictureApplication}>
-        <Image style={Style.imagePost} source={{uri: cover_image}} />
+        {cover_image === null ? null : (
+          <Image style={Style.imagePost} source={{uri: cover_image}} />
+        )}
 
         <View style={{width: '80%'}}>
           <Text style={Style.title}>{title}</Text>
