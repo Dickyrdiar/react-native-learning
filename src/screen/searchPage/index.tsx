@@ -1,12 +1,29 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import Constants from 'expo-constants';
 import {FieldInput} from '../../components/Form';
 import Tag from '../../components/tagCarousel';
+import {useDispatch, useSelector} from 'react-redux';
+import {ThunkDispatch} from 'redux-thunk';
+import {fetchData} from '../../redux/fetching';
 
 function SearchPage(): JSX.Element {
   const scrollView = useRef<ScrollView>(null);
   const [selected, setSelected] = useState(0);
+
+  const {data, isLoading, error} = useSelector((state: any) => state.data);
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  console.log('data search data');
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
+
+  const modifiedTrending = data.reduce((acc: any, curr: any) =>
+    curr.positive_reactions_count > 5 ? [curr, ...acc] : [...acc, curr],
+  );
+
+  console.log('trending', modifiedTrending);
 
   return (
     <>
@@ -18,6 +35,7 @@ function SearchPage(): JSX.Element {
             //   throw new Error('Function not implemented.');
             // }}
           />
+          {/* <Text>this is search page</Text> */}
         </View>
         {/* <Text>this is Search page</Text> */}
         <View style={style.searchForm}>
@@ -52,8 +70,8 @@ const style = StyleSheet.create({
   searchFormPosition: {
     marginTop: 8,
     justifyContent: 'center',
-    width: '83r%',
-    marginLeft: 40,
+    width: '86%',
+    marginLeft: 20,
   },
 
   searchForm: {

@@ -1,4 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import axios from 'axios';
 import {ParsingProps} from '../lib/TypeData/cardMenu.type';
 import {fetchSomeData} from './api';
 
@@ -15,7 +16,7 @@ const initialState: myState = {
 } as myState;
 
 export const fetchData = createAsyncThunk('fetch/data', async () => {
-  const response = await fetchSomeData();
+  const response = await axios.get('https://dev.to/api/articles');
   return response.data;
 });
 
