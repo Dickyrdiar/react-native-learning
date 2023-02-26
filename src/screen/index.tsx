@@ -7,6 +7,7 @@ import {
   Text,
   Dimensions,
   ActivityIndicatorBase,
+  ActivityIndicator,
 } from 'react-native';
 import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
@@ -16,7 +17,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {fetchData} from '../redux/fetching';
 import {ThunkDispatch} from 'redux-thunk';
 
-function IndexApp({navigation}: any): JSX.Element {
+type ScreenProps = {
+  navigation: any;
+};
+
+function IndexApp({navigation}: ScreenProps): JSX.Element {
   // const navigation = useNavigation();
   const [selected, setSelected] = useState(0);
   const ScrollViewRef = useRef<ScrollView>(null);
@@ -45,7 +50,9 @@ function IndexApp({navigation}: any): JSX.Element {
   if (isLoading) {
     return (
       <>
-        <Text>loading.....</Text>
+        <View style={style.container}>
+          <ActivityIndicator size="large" />
+        </View>
       </>
     );
   }
@@ -60,23 +67,26 @@ function IndexApp({navigation}: any): JSX.Element {
           horizontal
           showsHorizontalScrollIndicator={false}>
           {tags.map((tag, id) => (
-            <Tag
-              key={tag.id}
-              tag={tag.name}
-              selected={id === selected}
-              colro={tag.bg_color_hex}
-              onClick={function (): void {
-                throw new Error('Function not implemented.');
-              }}
-            />
+            <TouchableOpacity>
+              <Tag
+                key={tag.id}
+                tag={tag.name}
+                selected={id === selected}
+                colro={tag.bg_color_hex}
+                onClick={function (): void {
+                  throw new Error('Function not implemented.');
+                }}
+              />
+            </TouchableOpacity>
           ))}
         </ScrollView>
       </View>
-      <ScrollView style={style.scrollView} horizontal={true}>
+      <ScrollView style={style.scrollView} horizontal={false}>
         {data.length >= 0 ? (
           <>
-            {data?.map(val => (
-              <TouchableOpacity>
+            {data.map(val => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate('DetailBlog')}>
                 <CardMenu
                   title={val.title}
                   time={val.readable_publish_date}
@@ -123,7 +133,7 @@ const style = StyleSheet.create({
   },
 
   scrollView: {
-    marginHorizontal: 10,
+    marginHorizontal: 7,
   },
 
   Carouselcontainer: {
