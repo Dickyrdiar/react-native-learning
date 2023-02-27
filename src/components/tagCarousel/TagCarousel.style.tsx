@@ -6,11 +6,11 @@ export const StyledView = styled(View)`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: '#fffff';
+  background-color: '#c5c2c2f';
   padding: 5px;
   border-radius: 20px;
   margin-right: 6px;
-  color: '#fffff';
+  color: '#c9c5c5f';
 `;
 
 export const StyledText = styled(Text)`
