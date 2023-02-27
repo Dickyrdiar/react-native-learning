@@ -14,25 +14,28 @@ import CardMenu from '../components/cardMenu';
 import Tag from '../components/tagCarousel/index';
 import {useNavigation, NavigationContainer} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchData} from '../redux/fetching';
+import {fetchData, fetchTaglist} from '../redux/fetching';
 import {ThunkDispatch} from 'redux-thunk';
 
-type ScreenProps = {
-  navigation: any;
-};
+// type MyObject = {
+//   positive_reactions_count: number;
+// };
 
-function IndexApp({navigation}: ScreenProps): JSX.Element {
+function IndexApp({navigation}: any): JSX.Element {
   // const navigation = useNavigation();
   const [selected, setSelected] = useState(0);
   const ScrollViewRef = useRef<ScrollView>(null);
-  const {data, isLoading, error} = useSelector((state: any) => state.data);
+  const {data, isLoading, error, tagList} = useSelector(
+    (state: any) => state.data,
+  );
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-
-  console.log('data', data);
-  console.log('loading', isLoading);
 
   useEffect(() => {
     dispatch(fetchData());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchTaglist());
   }, [dispatch]);
 
   const handleTagPress = (index: number) => {
@@ -43,9 +46,11 @@ function IndexApp({navigation}: ScreenProps): JSX.Element {
     });
   };
 
-  // const handleNavigationToScreen = () => {
-  //   navigation.navigate('detailScreen');
-  // };
+  console.log('curr', tagList);
+
+  const handleNavigationToScreen = () => {
+    navigation.navigate('detailScreen');
+  };
 
   if (isLoading) {
     return (
@@ -84,7 +89,7 @@ function IndexApp({navigation}: ScreenProps): JSX.Element {
       <ScrollView style={style.scrollView} horizontal={false}>
         {data.length >= 0 ? (
           <>
-            {data.map(val => (
+            {data.map((val: any) => (
               <TouchableOpacity
                 onPress={() => navigation.navigate('DetailBlog')}>
                 <CardMenu
@@ -133,7 +138,7 @@ const style = StyleSheet.create({
   },
 
   scrollView: {
-    marginHorizontal: 7,
+    marginHorizontal: 4,
   },
 
   Carouselcontainer: {

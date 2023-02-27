@@ -6,6 +6,7 @@ import Tag from '../../components/tagCarousel';
 import {useDispatch, useSelector} from 'react-redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {fetchData} from '../../redux/fetching';
+import {ParsingProps} from '../../lib/TypeData/cardMenu.type';
 
 function SearchPage(): JSX.Element {
   const scrollView = useRef<ScrollView>(null);
@@ -13,17 +14,20 @@ function SearchPage(): JSX.Element {
 
   const {data, isLoading, error} = useSelector((state: any) => state.data);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  console.log('data search data');
 
   useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
 
-  const modifiedTrending = data.reduce((acc: any, curr: any) =>
-    curr.positive_reactions_count > 5 ? [curr, ...acc] : [...acc, curr],
-  );
+  function filterTopList(
+    positive_reactions_count: ParsingProps[],
+  ): ParsingProps[] {
+    return positive_reactions_count.filter(
+      obj => obj.positive_reactions_count > 20,
+    );
+  }
 
-  console.log('trending', modifiedTrending);
+  // console.log('trending', modifiedTrending);
 
   return (
     <>
