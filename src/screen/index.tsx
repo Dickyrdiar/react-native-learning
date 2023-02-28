@@ -16,6 +16,7 @@ import {useNavigation, NavigationContainer} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchData, fetchTaglist} from '../redux/fetching';
 import {ThunkDispatch} from 'redux-thunk';
+import {TabperScreen} from '../navigation/navigatePerScreen/index';
 
 // type MyObject = {
 //   positive_reactions_count: number;
@@ -29,6 +30,8 @@ function IndexApp({navigation}: any): JSX.Element {
     (state: any) => state.data,
   );
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+  console.log('err', error);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -46,8 +49,11 @@ function IndexApp({navigation}: any): JSX.Element {
     });
   };
 
-  const handleNavigationToScreen = () => {
-    navigation.navigate('detailScreen');
+  const handleNavigationToScreen = (val: any) => {
+    navigation.navigate('detail', {
+      data: val,
+    });
+    // console.log('val', val);
   };
 
   if (isLoading) {
@@ -88,8 +94,7 @@ function IndexApp({navigation}: any): JSX.Element {
         {data.length >= 0 ? (
           <>
             {data.map((val: any) => (
-              <TouchableOpacity
-                onPress={() => navigation.navigate('DetailBlog')}>
+              <TouchableOpacity onPress={() => handleNavigationToScreen(val)}>
                 <CardMenu
                   title={val.title}
                   time={val.readable_publish_date}

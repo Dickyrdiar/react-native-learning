@@ -19,69 +19,67 @@ interface LosginProps {
 
 function BottomTabNavigator({isLoggedIn}: LosginProps): JSX.Element {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarActiveTintColor: '#f8f8f8',
-          tabBarInactiveTintColor: '#f8f8f8',
-          tabBarStyle: {
-            backgroundColor: '#ffffff',
-          },
-        }}>
-        <Tab.Screen
-          name="Home"
-          component={IndexApp}
-          options={{
-            tabBarIcon: ({color}) => (
-              <Image
-                source={require('../assets/icon/Button/home.png')}
-                style={{width: 25, height: 25}}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Save"
-          component={SavePosts}
-          options={{
-            tabBarIcon: ({color}) => (
-              <Image
-                source={require('../assets/icon/Button/Bookmark.png')}
-                style={{width: 26, height: 26}}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Explore"
-          component={SearchPage}
-          options={{
-            tabBarIcon: ({color}) => (
-              <Image
-                source={require('../assets/icon/Button/Search.png')}
-                style={{width: 26, height: 26}}
-              />
-            ),
-          }}
-        />
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: '#f8f8f8',
+        tabBarInactiveTintColor: '#f8f8f8',
+        tabBarStyle: {
+          backgroundColor: '#ffffff',
+        },
+      }}>
+      <Tab.Screen
+        name="Home"
+        component={IndexApp}
+        options={{
+          tabBarIcon: ({color}) => (
+            <Image
+              source={require('../assets/icon/Button/home.png')}
+              style={{width: 25, height: 25}}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Save"
+        component={SavePosts}
+        options={{
+          tabBarIcon: ({color}) => (
+            <Image
+              source={require('../assets/icon/Button/Bookmark.png')}
+              style={{width: 26, height: 26}}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Explore"
+        component={SearchPage}
+        options={{
+          tabBarIcon: ({color}) => (
+            <Image
+              source={require('../assets/icon/Button/Search.png')}
+              style={{width: 26, height: 26}}
+            />
+          ),
+        }}
+      />
 
-        <Tab.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            tabBarIcon: ({focused}) => (
-              <ProfilePicture
-                imageUrl={
-                  focused
-                    ? 'https://example.com/profile.png'
-                    : 'https://example.com/default-profile.png'
-                }
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <ProfilePicture
+              imageUrl={
+                focused
+                  ? 'https://example.com/profile.png'
+                  : 'https://example.com/default-profile.png'
+              }
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 
