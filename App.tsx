@@ -7,7 +7,6 @@ import {TabperScreen} from './src/navigation/navigatePerScreen/index';
 function App(): JSX.Element {
   return (
     <Provider store={store}>
-      {/* <BottomNavigation /> */}
       <TabperScreen />
     </Provider>
   );

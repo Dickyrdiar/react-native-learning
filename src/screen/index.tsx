@@ -12,15 +12,9 @@ import {
 import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
 import Tag from '../components/tagCarousel/index';
-import {useNavigation, NavigationContainer} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchData, fetchTaglist} from '../redux/fetching';
 import {ThunkDispatch} from 'redux-thunk';
-import {TabperScreen} from '../navigation/navigatePerScreen/index';
-
-// type MyObject = {
-//   positive_reactions_count: number;
-// };
 
 function IndexApp({navigation}: any): JSX.Element {
   // const navigation = useNavigation();
@@ -53,7 +47,6 @@ function IndexApp({navigation}: any): JSX.Element {
     navigation.navigate('detail', {
       data: val,
     });
-    // console.log('val', val);
   };
 
   if (isLoading) {
@@ -65,8 +58,6 @@ function IndexApp({navigation}: any): JSX.Element {
       </>
     );
   }
-
-  console.log('data', data.length <= 0);
 
   return (
     <View style={style.container}>
