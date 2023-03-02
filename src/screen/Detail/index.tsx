@@ -1,8 +1,15 @@
-import {Text} from 'react-native';
 import React from 'react';
+import {Text, Image} from 'react-native';
 
-function DetailBlog(): JSX.Element {
-  return <Text>this is detail</Text>;
+function DetailBlog({route}: any): JSX.Element {
+  const {data} = route.params;
+  console.log('result', data);
+
+  return (
+    <>
+      <Text>{data.title}</Text>
+    </>
+  );
 }
 
 export default DetailBlog;
