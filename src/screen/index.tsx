@@ -8,6 +8,7 @@ import {
   Dimensions,
   ActivityIndicatorBase,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
@@ -24,8 +25,6 @@ function IndexApp({navigation}: any): JSX.Element {
     (state: any) => state.data,
   );
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-
-  console.log('err', error);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -67,22 +66,27 @@ function IndexApp({navigation}: any): JSX.Element {
           horizontal
           showsHorizontalScrollIndicator={false}>
           {tagList?.map((tag: any, id: number) => (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleTagPress(id)}>
               <Tag
                 key={tag.id}
                 tag={tag.name}
                 selected={id === selected}
                 colro={tag.bg_color_hex}
-                onClick={function (): void {
-                  throw new Error('Function not implemented.');
-                }}
               />
             </TouchableOpacity>
           ))}
         </ScrollView>
       </View>
       <ScrollView style={style.scrollView} horizontal={false}>
-        {data.length >= 0 ? (
+        {data.length === 0 || null || undefined ? (
+          <View style={style.imageEmpty}>
+            <Image
+              source={require('../assets/icon/Button/empty-folder.png')}
+              // style={{width: 25, height: 25}}
+            />
+            <Text>Up's Something went Wrong</Text>
+          </View>
+        ) : (
           <>
             {data.map((val: any) => (
               <TouchableOpacity onPress={() => handleNavigationToScreen(val)}>
@@ -101,8 +105,6 @@ function IndexApp({navigation}: any): JSX.Element {
               </TouchableOpacity>
             ))}
           </>
-        ) : (
-          <View>this is empty</View>
         )}
       </ScrollView>
     </View>
@@ -133,6 +135,12 @@ const style = StyleSheet.create({
 
   scrollView: {
     marginHorizontal: 4,
+  },
+
+  imageEmpty: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 60,
   },
 
   Carouselcontainer: {

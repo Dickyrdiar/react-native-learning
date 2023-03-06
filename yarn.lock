@@ -4360,7 +4360,7 @@
     "has" "^1.0.3"
     "side-channel" "^1.0.4"
 
-"invariant@*", "invariant@^2.2.4":
+"invariant@*", "invariant@^2.2.1", "invariant@^2.2.4":
   "integrity" "sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA=="
   "resolved" "https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz"
   "version" "2.2.4"
@@ -6636,6 +6636,14 @@
   "resolved" "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.71.14.tgz"
   "version" "0.71.14"
 
+"react-native-oauth@^2.1.18":
+  "integrity" "sha512-+ZNjZAq6J451HlBFvO32AFYzgaDVY9lc9dWg40AYki38sznET/3g2MPO2SIgJ8l7kV3dNddOskYa3IHfbdqL3w=="
+  "resolved" "https://registry.npmjs.org/react-native-oauth/-/react-native-oauth-2.1.18.tgz"
+  "version" "2.1.18"
+  dependencies:
+    "invariant" "^2.2.1"
+    "valib" "^2.0.0"
+
 "react-native-safe-area-context@^4.5.0":
   "integrity" "sha512-0WORnk9SkREGUg2V7jHZbuN5x4vcxj/1B0QOcXJjdYWrzZHgLcUzYWWIUecUPJh747Mwjt/42RZDOaFn3L8kPQ=="
   "resolved" "https://registry.npmjs.org/react-native-safe-area-context/-/react-native-safe-area-context-4.5.0.tgz"
@@ -7915,6 +7923,11 @@
     "@jridgewell/trace-mapping" "^0.3.12"
     "@types/istanbul-lib-coverage" "^2.0.1"
     "convert-source-map" "^1.6.0"
+
+"valib@^2.0.0":
+  "integrity" "sha512-Fi/o6qsY1CFav30zYx/PigDcT/aPd7kMNn9JWAdDPAWpLnriOGYIQDUVoVuPuH394EMJChgEjVn84iZeCsve9A=="
+  "resolved" "https://registry.npmjs.org/valib/-/valib-2.0.0.tgz"
+  "version" "2.0.0"
 
 "vary@~1.1.2":
   "integrity" "sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg=="
