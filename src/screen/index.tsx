@@ -16,6 +16,7 @@ import Tag from '../components/tagCarousel/index';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchData, fetchTaglist} from '../redux/fetching';
 import {ThunkDispatch} from 'redux-thunk';
+import {groupedData} from '../lib/functionGrouping';
 
 function IndexApp({navigation}: any): JSX.Element {
   // const navigation = useNavigation();
@@ -40,6 +41,11 @@ function IndexApp({navigation}: any): JSX.Element {
       x: index * (Dimensions.get('window').width / 3),
       y: 0,
     });
+
+    console.log('click');
+    navigation.navigate('detail-tag', {
+      data: index,
+    });
   };
 
   const handleNavigationToScreen = (val: any) => {
@@ -57,6 +63,19 @@ function IndexApp({navigation}: any): JSX.Element {
       </>
     );
   }
+
+  const groupData = data.reduce((acc: any, curr: any) => {
+    curr.tagList?.forEach((tag: any) => {
+      if (!acc[tag]) {
+        acc[tag] = [];
+      }
+
+      acc[tag].push[curr];
+    });
+    return acc;
+  }, {});
+
+  console.log('ffff', groupData);
 
   return (
     <View style={style.container}>

@@ -34,38 +34,10 @@ export const fetchTaglist = createAsyncThunk('tags/fetchTags', async () => {
   return responseTag.data;
 });
 
-export const authenticateUser = createAsyncThunk(
-  'user/authentication',
-  async (code: string): Promise<string> => {
-    const responseLogin = await axios.post(
-      'https://github.com/login/oauth/access_token',
-      {
-        client_id: YOUR_CLIENT_ID,
-        client_secret: YOUR_CLIENT_SECRET,
-        code,
-      },
-      {
-        headers: {
-          Accept: 'application/json',
-        },
-      },
-    );
-
-    return responseLogin.data.access_token;
-  },
-);
-
 export const dataSlice = createSlice({
   name: 'data',
   initialState,
-  reducers: {
-    login: (state, action) => {
-      state.user = action.payload;
-    },
-    logout: state => {
-      state.user = undefined;
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     // state for data
     builder.addCase(fetchData.pending, state => {
