@@ -8,6 +8,8 @@ import {
   Dimensions,
   ActivityIndicatorBase,
   ActivityIndicator,
+  Image,
+  FlatList,
 } from 'react-native';
 import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
@@ -15,6 +17,21 @@ import Tag from '../components/tagCarousel/index';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchData, fetchTaglist} from '../redux/fetching';
 import {ThunkDispatch} from 'redux-thunk';
+import {ParsingProps} from '../lib/TypeData/cardMenu.type';
+import GroupBydata from '../service/groupByData';
+
+type Item = {
+  id: number;
+  name: string;
+  tags: string[];
+};
+
+type GroupByData = {
+  [tagName: string]: {
+    name: string;
+    items: ParsingProps[];
+  };
+};
 
 function IndexApp({navigation}: any): JSX.Element {
   // const navigation = useNavigation();
@@ -24,8 +41,11 @@ function IndexApp({navigation}: any): JSX.Element {
     (state: any) => state.data,
   );
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  // const [items, setItems] = useState<Item[]>([]);
 
-  console.log('err', error);
+  const {groupedData} = GroupBydata();
+
+  console.log('gggg', groupedData);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -40,6 +60,11 @@ function IndexApp({navigation}: any): JSX.Element {
     ScrollViewRef.current?.scrollTo({
       x: index * (Dimensions.get('window').width / 3),
       y: 0,
+    });
+
+    console.log('click');
+    navigation.navigate('detail-tag', {
+      data: index,
     });
   };
 
@@ -67,22 +92,27 @@ function IndexApp({navigation}: any): JSX.Element {
           horizontal
           showsHorizontalScrollIndicator={false}>
           {tagList?.map((tag: any, id: number) => (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleTagPress(id)}>
               <Tag
                 key={tag.id}
                 tag={tag.name}
                 selected={id === selected}
                 colro={tag.bg_color_hex}
-                onClick={function (): void {
-                  throw new Error('Function not implemented.');
-                }}
               />
             </TouchableOpacity>
           ))}
         </ScrollView>
       </View>
       <ScrollView style={style.scrollView} horizontal={false}>
-        {data.length >= 0 ? (
+        {data.length === 0 || null || undefined ? (
+          <View style={style.imageEmpty}>
+            <Image
+              source={require('../assets/icon/Button/empty-folder.png')}
+              // style={{width: 25, height: 25}}
+            />
+            <Text>Up's Something went Wrong</Text>
+          </View>
+        ) : (
           <>
             {data.map((val: any) => (
               <TouchableOpacity onPress={() => handleNavigationToScreen(val)}>
@@ -101,8 +131,6 @@ function IndexApp({navigation}: any): JSX.Element {
               </TouchableOpacity>
             ))}
           </>
-        ) : (
-          <View>this is empty</View>
         )}
       </ScrollView>
     </View>
@@ -133,6 +161,12 @@ const style = StyleSheet.create({
 
   scrollView: {
     marginHorizontal: 4,
+  },
+
+  imageEmpty: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 60,
   },
 
   Carouselcontainer: {

@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@octokit/core": "^4.2.0",
+    "@react-native-community/async-storage": "^1.12.1",
+    "@react-native-community/netinfo": "^9.3.7",
     "@react-navigation/bottom-tabs": "^6.5.4",
     "@react-navigation/drawer": "^6.5.8",
     "@react-navigation/native": "^6.1.3",

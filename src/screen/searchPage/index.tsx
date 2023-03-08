@@ -16,9 +16,11 @@ import {fetchData} from '../../redux/fetching';
 import {ParsingProps} from '../../lib/TypeData/cardMenu.type';
 import {CardTrending} from '../../components/cardTrending';
 
-function SearchPage(): JSX.Element {
+function SearchPage({navigation}: any): JSX.Element {
   const scrollView = useRef<ScrollView>(null);
   const [selected, setSelected] = useState(0);
+  const [query, setQuery] = useState('');
+  const [searchValue, setSearchValue] = useState(false);
 
   const {data, isLoading, error, tagList} = useSelector(
     (state: any) => state.data,
@@ -37,7 +39,20 @@ function SearchPage(): JSX.Element {
     );
   }
 
-  console.log('trending', filterTopList(data));
+  const handleSearch = (text: string) => {
+    setQuery(text);
+    setSearchValue(true);
+  };
+
+  const filteredItems = data.filter((item: any) =>
+    item.title.toLowerCase().includes(query.toLocaleLowerCase()),
+  );
+
+  const handleNavigationToScreen = (val: any) => {
+    navigation.navigate('detail', {
+      data: val,
+    });
+  };
 
   if (isLoading) {
     return (
@@ -55,13 +70,10 @@ function SearchPage(): JSX.Element {
         <View style={style.searchFormPosition}>
           <FieldInput
             placeholder="search something"
-            // onChangeText={function (text: string): void {
-            //   throw new Error('Function not implemented.');
-            // }}
+            onChangeText={handleSearch}
           />
-          {/* <Text>this is search page</Text> */}
         </View>
-        {/* <Text>this is Search page</Text> */}
+
         <View style={style.searchForm}>
           <ScrollView
             ref={scrollView}
@@ -80,10 +92,10 @@ function SearchPage(): JSX.Element {
             ))}
           </ScrollView>
 
-          <View style={style.TrendingPosts}>
-            <ScrollView style={style.scrollView} horizontal={false}>
-              {filterTopList(data).map((val: any) => (
-                <TouchableOpacity>
+          {searchValue === true ? (
+            <View style={style.TrendingPosts}>
+              {filteredItems.map((val: any) => (
+                <TouchableOpacity onPress={() => handleNavigationToScreen(val)}>
                   <CardTrending
                     title={val.title}
                     time={val.readable_publish_date}
@@ -91,8 +103,23 @@ function SearchPage(): JSX.Element {
                   />
                 </TouchableOpacity>
               ))}
-            </ScrollView>
-          </View>
+            </View>
+          ) : (
+            <View style={style.TrendingPosts}>
+              <ScrollView style={style.scrollView} horizontal={false}>
+                {filterTopList(data).map((val: any) => (
+                  <TouchableOpacity
+                    onPress={() => handleNavigationToScreen(val)}>
+                    <CardTrending
+                      title={val.title}
+                      time={val.readable_publish_date}
+                      user={[val.user]}
+                    />
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </View>
+          )}
         </View>
       </View>
     </>
