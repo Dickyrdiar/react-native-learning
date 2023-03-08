@@ -9,6 +9,7 @@ import {
   ActivityIndicatorBase,
   ActivityIndicator,
   Image,
+  FlatList,
 } from 'react-native';
 import Constants from 'expo-constants';
 import CardMenu from '../components/cardMenu';
@@ -16,7 +17,21 @@ import Tag from '../components/tagCarousel/index';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchData, fetchTaglist} from '../redux/fetching';
 import {ThunkDispatch} from 'redux-thunk';
-import {groupedData} from '../lib/functionGrouping';
+import {ParsingProps} from '../lib/TypeData/cardMenu.type';
+import GroupBydata from '../service/groupByData';
+
+type Item = {
+  id: number;
+  name: string;
+  tags: string[];
+};
+
+type GroupByData = {
+  [tagName: string]: {
+    name: string;
+    items: ParsingProps[];
+  };
+};
 
 function IndexApp({navigation}: any): JSX.Element {
   // const navigation = useNavigation();
@@ -26,6 +41,11 @@ function IndexApp({navigation}: any): JSX.Element {
     (state: any) => state.data,
   );
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  // const [items, setItems] = useState<Item[]>([]);
+
+  const {groupedData} = GroupBydata();
+
+  console.log('gggg', groupedData);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -63,19 +83,6 @@ function IndexApp({navigation}: any): JSX.Element {
       </>
     );
   }
-
-  const groupData = data.reduce((acc: any, curr: any) => {
-    curr.tagList?.forEach((tag: any) => {
-      if (!acc[tag]) {
-        acc[tag] = [];
-      }
-
-      acc[tag].push[curr];
-    });
-    return acc;
-  }, {});
-
-  console.log('ffff', groupData);
 
   return (
     <View style={style.container}>

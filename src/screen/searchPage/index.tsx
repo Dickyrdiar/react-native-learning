@@ -16,7 +16,7 @@ import {fetchData} from '../../redux/fetching';
 import {ParsingProps} from '../../lib/TypeData/cardMenu.type';
 import {CardTrending} from '../../components/cardTrending';
 
-function SearchPage(): JSX.Element {
+function SearchPage({navigation}: any): JSX.Element {
   const scrollView = useRef<ScrollView>(null);
   const [selected, setSelected] = useState(0);
   const [query, setQuery] = useState('');
@@ -47,6 +47,12 @@ function SearchPage(): JSX.Element {
   const filteredItems = data.filter((item: any) =>
     item.title.toLowerCase().includes(query.toLocaleLowerCase()),
   );
+
+  const handleNavigationToScreen = (val: any) => {
+    navigation.navigate('detail', {
+      data: val,
+    });
+  };
 
   if (isLoading) {
     return (
@@ -89,18 +95,21 @@ function SearchPage(): JSX.Element {
           {searchValue === true ? (
             <View style={style.TrendingPosts}>
               {filteredItems.map((val: any) => (
-                <CardTrending
-                  title={val.title}
-                  time={val.readable_publish_date}
-                  user={[val.user]}
-                />
+                <TouchableOpacity onPress={() => handleNavigationToScreen(val)}>
+                  <CardTrending
+                    title={val.title}
+                    time={val.readable_publish_date}
+                    user={[val.user]}
+                  />
+                </TouchableOpacity>
               ))}
             </View>
           ) : (
             <View style={style.TrendingPosts}>
               <ScrollView style={style.scrollView} horizontal={false}>
                 {filterTopList(data).map((val: any) => (
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => handleNavigationToScreen(val)}>
                     <CardTrending
                       title={val.title}
                       time={val.readable_publish_date}
