@@ -20,7 +20,7 @@ type GroupData = {
 const GroupBydata = () => {
   const [groupedData, setGroupedData] = useState<GroupData>({});
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const {data, isLoading, error} = useSelector((state: any) => state.data);
+  const {data} = useSelector((state: any) => state.data);
 
   useEffect(() => {
     dispatch(fetchData);
@@ -41,7 +41,7 @@ const GroupBydata = () => {
     setGroupedData(newData);
   }, [data]);
 
-  return {groupedData, error};
+  return {groupedData};
 };
 
 export default GroupBydata;

@@ -4,12 +4,10 @@ import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IndexApp from '../screen';
 import SearchPage from '../screen/searchPage';
-import {NavigationContainer} from '@react-navigation/native';
 import {StyleSheet, Image} from 'react-native';
-import SavePosts from '../screen/SavePosts';
 import {Profile} from '../screen/profile';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import ProfilePicture from '../navigation/navigatePerScreen/image';
+import PodcastPage from '../screen/PodcastPage';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,11 +39,11 @@ function BottomTabNavigator({isLoggedIn}: LosginProps): JSX.Element {
       />
       <Tab.Screen
         name="Save"
-        component={SavePosts}
+        component={PodcastPage}
         options={{
           tabBarIcon: ({color}) => (
             <Image
-              source={require('../assets/icon/Button/Bookmark.png')}
+              source={require('../assets/icon/Button/microphone.png')}
               style={{width: 26, height: 26}}
             />
           ),

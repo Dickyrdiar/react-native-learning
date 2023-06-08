@@ -19,33 +19,28 @@ import {fetchData, fetchTaglist} from '../redux/fetching';
 import {ThunkDispatch} from 'redux-thunk';
 import {ParsingProps} from '../lib/TypeData/cardMenu.type';
 import GroupBydata from '../service/groupByData';
-
-type Item = {
-  id: number;
-  name: string;
-  tags: string[];
-};
-
-type GroupByData = {
-  [tagName: string]: {
-    name: string;
-    items: ParsingProps[];
-  };
-};
+import FetchingData from '../services/fetching';
 
 function IndexApp({navigation}: any): JSX.Element {
   // const navigation = useNavigation();
-  const [selected, setSelected] = useState(0);
+  const [page, setPage] = useState(1);
   const ScrollViewRef = useRef<ScrollView>(null);
   const {data, isLoading, error, tagList} = useSelector(
     (state: any) => state.data,
   );
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  // const [items, setItems] = useState<Item[]>([]);
 
+  const {
+    response: dataResponse,
+    loading: loadingResponse,
+    error: ErrorResponse,
+  } = FetchingData({
+    url: `/articles?=${page}`,
+    method: 'GET',
+    skip: page > 1,
+  });
   const {groupedData} = GroupBydata();
-
-  console.log('gggg', groupedData);
+  console.log('data', dataResponse);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -55,18 +50,18 @@ function IndexApp({navigation}: any): JSX.Element {
     dispatch(fetchTaglist());
   }, [dispatch]);
 
-  const handleTagPress = (index: number) => {
-    setSelected(index);
+  const handleTagPress = (index: any) => {
     ScrollViewRef.current?.scrollTo({
       x: index * (Dimensions.get('window').width / 3),
       y: 0,
     });
 
-    console.log('click');
     navigation.navigate('detail-tag', {
       data: index,
     });
   };
+
+  const handleScroll = (event: ScrollView['props']['onScroll']) => {};
 
   const handleNavigationToScreen = (val: any) => {
     navigation.navigate('detail', {
@@ -91,14 +86,9 @@ function IndexApp({navigation}: any): JSX.Element {
           ref={ScrollViewRef}
           horizontal
           showsHorizontalScrollIndicator={false}>
-          {tagList?.map((tag: any, id: number) => (
-            <TouchableOpacity onPress={() => handleTagPress(id)}>
-              <Tag
-                key={tag.id}
-                tag={tag.name}
-                selected={id === selected}
-                colro={tag.bg_color_hex}
-              />
+          {Object.entries(groupedData)?.map(([tag]) => (
+            <TouchableOpacity onPress={() => handleTagPress(tag)}>
+              <Tag tag={tag} colro={''} selected={false} />
             </TouchableOpacity>
           ))}
         </ScrollView>

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   ActivityIndicator,
   ScrollView,
@@ -30,6 +30,14 @@ function SearchPage({navigation}: any): JSX.Element {
   useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
+
+  // const filter = useMemo(function filter(
+  //   positive_reactions_count: ParsingProps[],
+  // ): ParsingProps[] {
+  //   return positive_reactions_count.filter(
+  //     obj => obj.positive_reactions_count > 20,
+  //   );
+  // });
 
   function filterTopList(
     positive_reactions_count: ParsingProps[],
@@ -92,6 +100,7 @@ function SearchPage({navigation}: any): JSX.Element {
             ))}
           </ScrollView>
 
+          <Text>blog's Articles</Text>
           {searchValue === true ? (
             <View style={style.TrendingPosts}>
               {filteredItems.map((val: any) => (
