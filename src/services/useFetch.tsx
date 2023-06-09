@@ -1,18 +1,18 @@
-import axios from 'axios';
 import {useEffect, useState} from 'react';
+import axios from 'axios';
 
-axios.defaults.baseURL = 'https://dev.to/api';
+axios.defaults.baseURL = 'https://dev.to/api/';
 const headers = {
   'Content-type': 'Application/json',
 };
 
-interface FetchingProps {
+interface useFethingProps {
   url: string;
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-  body?: null | undefined;
+  body?: null;
 }
 
-const FetchingData = ({url, method, body = null}: FetchingProps) => {
+const useFetching = ({url, method, body = null}: useFethingProps) => {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,6 @@ const FetchingData = ({url, method, body = null}: FetchingProps) => {
 
     const fetchData = async () => {
       try {
-        setLoading(true);
         const result = await axios.request({
           url,
           method,
@@ -46,9 +45,9 @@ const FetchingData = ({url, method, body = null}: FetchingProps) => {
       isMounthed = false;
       source.cancel(`cancel req ${url}`);
     };
-  }, [body, method, url, source.token, source]);
+  }, [body, method, source]);
 
   return {response, error, loading};
 };
 
-export default FetchingData;
+export default useFetching;

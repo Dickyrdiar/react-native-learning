@@ -28,7 +28,7 @@ function SearchPage({navigation}: any): JSX.Element {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
   useEffect(() => {
-    dispatch(fetchData());
+    dispatch(fetchData(0));
   }, [dispatch]);
 
   // const filter = useMemo(function filter(

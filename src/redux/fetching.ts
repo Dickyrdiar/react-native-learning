@@ -8,6 +8,7 @@ import {useAuthProps} from '../lib/TypeData/userAuthProps';
 import {fetchSomeData} from './api';
 import {PodcastProps} from '../lib/TypeData/podcase.type';
 import {access} from 'fs';
+import {detailResponse} from '../lib/TypeData/detailResponse.types';
 
 interface myState {
   // page: number;
@@ -18,6 +19,7 @@ interface myState {
   error: string | null | undefined;
   user?: useAuthProps[];
   podcast: PodcastProps[];
+  detail: detailResponse[];
 }
 
 const initialState: myState = {
@@ -29,12 +31,29 @@ const initialState: myState = {
   token: null,
   isLoading: true,
   error: null,
+  detail: [],
 } as myState;
 
-export const fetchData = createAsyncThunk('data/fetchData', async () => {
-  const response = await axios.get('https://dev.to/api/articles');
-  return response.data;
-});
+export const fetchData = createAsyncThunk(
+  'data/fetchData',
+  async (page: number) => {
+    const response = await axios.get(
+      `https://dev.to/api/articles?page=${page}`,
+    );
+    return response.data;
+  },
+);
+
+export const fetchDetail = createAsyncThunk(
+  'data/detail',
+  async (path: string) => {
+    const responseDetail = await axios.get(
+      `https://dev.to/api/articles/${path}`,
+    );
+
+    return responseDetail.data;
+  },
+);
 
 export const fetchTaglist = createAsyncThunk('tags/fetchTags', async () => {
   const responseTag = await axios.get('https://dev.to/api/tags');
@@ -54,20 +73,7 @@ export const fetchPodcast = createAsyncThunk(
 export const dataSlice = createSlice({
   name: 'data',
   initialState,
-  reducers: {
-    setPagedata: (state, action: PayloadAction<any[]>) => {
-      state.data = action.payload;
-      state.isLoading = false;
-      state.error = null;
-    },
-    setLoading: state => {
-      state.isLoading = true;
-    },
-    setError: (state, action: PayloadAction<string>) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     // state for data
     builder.addCase(fetchData.pending, state => {
@@ -82,6 +88,17 @@ export const dataSlice = createSlice({
     builder.addCase(fetchData.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
+    });
+
+    // state detail
+    builder.addCase(fetchDetail.pending, state => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(fetchDetail.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.detail = action.payload;
+      state.error = null;
     });
 
     // state for tagList
@@ -99,19 +116,19 @@ export const dataSlice = createSlice({
       state.error = action.error.message;
     });
 
-    // statefor Podcaset
-    builder.addCase(fetchPodcast.rejected, state => {
-      state.isLoading = true;
-      state.error = null;
-    });
-    builder.addCase(fetchPodcast.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.podcast = action.payload;
-      state.error = null;
-    });
-    builder.addCase(fetchPodcast.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
-    });
+    // state podcasrt
+    // builder.addCase(fetchPodcast.rejected, (state, action) => {
+    //   state.isLoading = false;
+    //   // state.podcast = action.payload;
+    //   state.error = null;
+    // });
+    // builder.addCase(fetchPodcast.pending, state => {
+    //   state.isLoading = true;
+    //   state.error = null;
+    // });
+    // builder.addCase(fetchPodcast.rejected, (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.error.message;
+    // });
   },
 });

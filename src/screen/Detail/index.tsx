@@ -1,31 +1,60 @@
-import React from 'react';
-import {Text, Image, StyleSheet, View} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Text, Image, StyleSheet, View, ScrollView} from 'react-native';
 import Constants from 'expo-constants';
 import moment from 'moment';
+import FetchingData from '../../services/fetching';
+import useFetching from '../../services/useFetch';
+import {PodcastProps} from '../../lib/TypeData/podcase.type';
+import axios from 'axios';
+import {useDispatch, useSelector} from 'react-redux';
+import {ThunkDispatch} from 'redux-thunk';
+import {fetchDetail} from '../../redux/fetching';
 
 function DetailBlog({route}: any): JSX.Element {
+  const scrollViewRwf = useRef<ScrollView>(null);
   const {data} = route.params;
-  console.log('result', data);
-
   const formateDate = moment(data.readable_publish_date).format('LLL');
+
+  const {detail, isLoading, errror} = useSelector((state: any) => state.data);
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+  useEffect(() => {
+    dispatch(fetchDetail(data.path));
+  }, [dispatch, data]);
+
+  const htmlBody = data.html_body;
+
+  console.log('detail', htmlBody?.replace(/<[^>]+>/g, ''));
 
   return (
     <>
-      {/* <Text>{data.title}</Text> */}
-      <View style={style.constainer}>
-        <Text style={style.text}>{data.title}</Text>
-        <View style={style.profileImageName}>
-          <Image style={style.pict} source={{uri: data?.user?.profile_image}} />
-          <View>
-            <Text style={style.user}>{data.user.name}</Text>
-            <Text style={style.readable_publish_date}>{formateDate}</Text>
+      <ScrollView
+        ref={scrollViewRwf}
+        style={style.scrollView}
+        horizontal={false}
+        contentContainerStyle={{paddingBottom: 20}}>
+        <View style={style.constainer}>
+          <Text style={style.text}>{detail.title}</Text>
+          <View style={style.profileImageName}>
+            <Image
+              style={style.pict}
+              source={{uri: detail?.user?.profile_image}}
+            />
+            <View>
+              <Text style={style.user}>{detail?.user?.name}</Text>
+              <Text style={style.readable_publish_date}>{formateDate}</Text>
+            </View>
+          </View>
+
+          {data.cover_image === null ? null : (
+            <Image style={style.imagePost} source={{uri: detail.cover_image}} />
+          )}
+
+          <View style={style.detailContetn}>
+            <Text>{detail.body_html}</Text>
           </View>
         </View>
-
-        {data.cover_image === null ? null : (
-          <Image style={style.imagePost} source={{uri: data.cover_image}} />
-        )}
-      </View>
+      </ScrollView>
     </>
   );
 }
@@ -39,6 +68,10 @@ const style = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#f7f7f7',
     padding: 9,
+  },
+
+  scrollView: {
+    marginHorizontal: 4,
   },
 
   text: {
@@ -82,5 +115,9 @@ const style = StyleSheet.create({
     fontSize: 10,
     marginTop: -10,
     marginLeft: 20,
+  },
+
+  detailContetn: {
+    marginTop: 30,
   },
 });

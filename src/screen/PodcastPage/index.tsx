@@ -3,8 +3,8 @@ import {Text} from 'react-native';
 import {useSelector} from 'react-redux';
 
 function PodcastPage(): JSX.Element {
-  const {podcast, isLoading, error} = useSelector((state: any) => state.data);
-  console.log('podcast', podcast);
+  // const {podcast, isLoading, error} = useSelector((state: any) => state.data);
+  // console.log('podcast', podcast);
 
   return (
     <>

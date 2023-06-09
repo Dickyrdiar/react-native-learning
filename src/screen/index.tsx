@@ -22,28 +22,15 @@ import GroupBydata from '../service/groupByData';
 import FetchingData from '../services/fetching';
 
 function IndexApp({navigation}: any): JSX.Element {
-  // const navigation = useNavigation();
-  const [page, setPage] = useState(1);
   const ScrollViewRef = useRef<ScrollView>(null);
   const {data, isLoading, error, tagList} = useSelector(
     (state: any) => state.data,
   );
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-
-  const {
-    response: dataResponse,
-    loading: loadingResponse,
-    error: ErrorResponse,
-  } = FetchingData({
-    url: `/articles?=${page}`,
-    method: 'GET',
-    skip: page > 1,
-  });
   const {groupedData} = GroupBydata();
-  console.log('data', dataResponse);
 
   useEffect(() => {
-    dispatch(fetchData());
+    dispatch(fetchData(1));
   }, [dispatch]);
 
   useEffect(() => {
@@ -61,7 +48,16 @@ function IndexApp({navigation}: any): JSX.Element {
     });
   };
 
-  const handleScroll = (event: ScrollView['props']['onScroll']) => {};
+  const handleLoadMore = (event: any) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    const contentHeight = event.nativeEvent.contentSize.height;
+    const layoutHeight = event.nativeEvent.layoutMeasurement.height;
+
+    if (offsetY >= contentHeight - layoutHeight) {
+      const nextPage = Math.ceil(data.length / 20) + 1;
+      dispatch(fetchData(nextPage));
+    }
+  };
 
   const handleNavigationToScreen = (val: any) => {
     navigation.navigate('detail', {
@@ -93,13 +89,15 @@ function IndexApp({navigation}: any): JSX.Element {
           ))}
         </ScrollView>
       </View>
-      <ScrollView style={style.scrollView} horizontal={false}>
+      <ScrollView
+        onScroll={handleLoadMore}
+        style={style.scrollView}
+        horizontal={false}
+        ref={ScrollViewRef}
+        contentContainerStyle={{paddingBottom: 20}}>
         {data.length === 0 || null || undefined ? (
           <View style={style.imageEmpty}>
-            <Image
-              source={require('../assets/icon/Button/empty-folder.png')}
-              // style={{width: 25, height: 25}}
-            />
+            <Image source={require('../assets/icon/Button/empty-folder.png')} />
             <Text>Up's Something went Wrong</Text>
           </View>
         ) : (
