@@ -19,53 +19,46 @@ import {fetchData, fetchTaglist} from '../redux/fetching';
 import {ThunkDispatch} from 'redux-thunk';
 import {ParsingProps} from '../lib/TypeData/cardMenu.type';
 import GroupBydata from '../service/groupByData';
-
-type Item = {
-  id: number;
-  name: string;
-  tags: string[];
-};
-
-type GroupByData = {
-  [tagName: string]: {
-    name: string;
-    items: ParsingProps[];
-  };
-};
+import FetchingData from '../services/fetching';
 
 function IndexApp({navigation}: any): JSX.Element {
-  // const navigation = useNavigation();
-  const [selected, setSelected] = useState(0);
   const ScrollViewRef = useRef<ScrollView>(null);
   const {data, isLoading, error, tagList} = useSelector(
     (state: any) => state.data,
   );
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  // const [items, setItems] = useState<Item[]>([]);
-
   const {groupedData} = GroupBydata();
 
-  console.log('gggg', groupedData);
-
   useEffect(() => {
-    dispatch(fetchData());
+    dispatch(fetchData(1));
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchTaglist());
   }, [dispatch]);
 
-  const handleTagPress = (index: number) => {
-    setSelected(index);
+  const handleTagPress = (index: any) => {
     ScrollViewRef.current?.scrollTo({
       x: index * (Dimensions.get('window').width / 3),
       y: 0,
     });
 
-    console.log('click');
     navigation.navigate('detail-tag', {
       data: index,
     });
+  };
+
+  console.log('data group', groupedData);
+
+  const handleLoadMore = (event: any) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    const contentHeight = event.nativeEvent.contentSize.height;
+    const layoutHeight = event.nativeEvent.layoutMeasurement.height;
+
+    if (offsetY >= contentHeight - layoutHeight) {
+      const nextPage = Math.ceil(data.length / 20) + 1;
+      dispatch(fetchData(nextPage));
+    }
   };
 
   const handleNavigationToScreen = (val: any) => {
@@ -91,25 +84,22 @@ function IndexApp({navigation}: any): JSX.Element {
           ref={ScrollViewRef}
           horizontal
           showsHorizontalScrollIndicator={false}>
-          {tagList?.map((tag: any, id: number) => (
-            <TouchableOpacity onPress={() => handleTagPress(id)}>
-              <Tag
-                key={tag.id}
-                tag={tag.name}
-                selected={id === selected}
-                colro={tag.bg_color_hex}
-              />
+          {Object.entries(groupedData)?.map(([tag]) => (
+            <TouchableOpacity onPress={() => handleTagPress(tag)}>
+              <Tag tag={tag} colro={''} selected={false} />
             </TouchableOpacity>
           ))}
         </ScrollView>
       </View>
-      <ScrollView style={style.scrollView} horizontal={false}>
+      <ScrollView
+        onScroll={handleLoadMore}
+        style={style.scrollView}
+        horizontal={false}
+        ref={ScrollViewRef}
+        contentContainerStyle={{paddingBottom: 20}}>
         {data.length === 0 || null || undefined ? (
           <View style={style.imageEmpty}>
-            <Image
-              source={require('../assets/icon/Button/empty-folder.png')}
-              // style={{width: 25, height: 25}}
-            />
+            <Image source={require('../assets/icon/Button/empty-folder.png')} />
             <Text>Up's Something went Wrong</Text>
           </View>
         ) : (
