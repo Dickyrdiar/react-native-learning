@@ -62,9 +62,9 @@ export const fetchTaglist = createAsyncThunk('tags/fetchTags', async () => {
 
 export const fetchPodcast = createAsyncThunk(
   'podcast/fecthPodcase',
-  async () => {
+  async (page: number) => {
     const responsePodcase = await axios.get(
-      'https://dev.to/api/podcast_episodes',
+      `https://dev.to/api/podcast_episodes?page=${page}`,
     );
     return responsePodcase.data;
   },
@@ -117,18 +117,18 @@ export const dataSlice = createSlice({
     });
 
     // state podcasrt
-    // builder.addCase(fetchPodcast.rejected, (state, action) => {
-    //   state.isLoading = false;
-    //   // state.podcast = action.payload;
-    //   state.error = null;
-    // });
-    // builder.addCase(fetchPodcast.pending, state => {
-    //   state.isLoading = true;
-    //   state.error = null;
-    // });
-    // builder.addCase(fetchPodcast.rejected, (state, action) => {
-    //   state.isLoading = false;
-    //   state.error = action.error.message;
-    // });
+    builder.addCase(fetchPodcast.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.podcast = action.payload;
+      state.error = null;
+    });
+    builder.addCase(fetchPodcast.pending, state => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(fetchPodcast.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
   },
 });

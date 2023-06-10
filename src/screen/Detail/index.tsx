@@ -1,17 +1,23 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Text, Image, StyleSheet, View, ScrollView} from 'react-native';
+import {
+  Text,
+  Image,
+  StyleSheet,
+  View,
+  ScrollView,
+  useWindowDimensions,
+  ActivityIndicator,
+} from 'react-native';
 import Constants from 'expo-constants';
 import moment from 'moment';
-import FetchingData from '../../services/fetching';
-import useFetching from '../../services/useFetch';
-import {PodcastProps} from '../../lib/TypeData/podcase.type';
-import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {fetchDetail} from '../../redux/fetching';
+import RenderHtml from 'react-native-render-html';
 
 function DetailBlog({route}: any): JSX.Element {
   const scrollViewRwf = useRef<ScrollView>(null);
+  const {width} = useWindowDimensions();
   const {data} = route.params;
   const formateDate = moment(data.readable_publish_date).format('LLL');
 
@@ -25,6 +31,16 @@ function DetailBlog({route}: any): JSX.Element {
   const htmlBody = data.html_body;
 
   console.log('detail', htmlBody?.replace(/<[^>]+>/g, ''));
+
+  if (isLoading) {
+    return (
+      <>
+        <View style={style.constainer}>
+          <ActivityIndicator size="large" />
+        </View>
+      </>
+    );
+  }
 
   return (
     <>
@@ -46,12 +62,16 @@ function DetailBlog({route}: any): JSX.Element {
             </View>
           </View>
 
-          {data.cover_image === null ? null : (
+          {detail?.cover_image === null ? null : (
             <Image style={style.imagePost} source={{uri: detail.cover_image}} />
           )}
 
           <View style={style.detailContetn}>
-            <Text>{detail.body_html}</Text>
+            <RenderHtml contentWidth={width} source={detail.body_html} />
+            {/* <WebView
+              originWhitelist={['*']}
+              source={{html: detail.body_html}}
+            /> */}
           </View>
         </View>
       </ScrollView>

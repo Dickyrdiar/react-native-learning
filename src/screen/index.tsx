@@ -48,6 +48,8 @@ function IndexApp({navigation}: any): JSX.Element {
     });
   };
 
+  console.log('data group', groupedData);
+
   const handleLoadMore = (event: any) => {
     const offsetY = event.nativeEvent.contentOffset.y;
     const contentHeight = event.nativeEvent.contentSize.height;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   ActivityIndicator,
@@ -31,14 +32,6 @@ function SearchPage({navigation}: any): JSX.Element {
     dispatch(fetchData(0));
   }, [dispatch]);
 
-  // const filter = useMemo(function filter(
-  //   positive_reactions_count: ParsingProps[],
-  // ): ParsingProps[] {
-  //   return positive_reactions_count.filter(
-  //     obj => obj.positive_reactions_count > 20,
-  //   );
-  // });
-
   function filterTopList(
     positive_reactions_count: ParsingProps[],
   ): ParsingProps[] {
@@ -52,9 +45,11 @@ function SearchPage({navigation}: any): JSX.Element {
     setSearchValue(true);
   };
 
-  const filteredItems = data.filter((item: any) =>
-    item.title.toLowerCase().includes(query.toLocaleLowerCase()),
-  );
+  const handleFilter = useMemo(() => {
+    return data?.filter((item: any) =>
+      item?.title?.toLowerCase().includes(query.toLocaleLowerCase()),
+    );
+  });
 
   const handleNavigationToScreen = (val: any) => {
     navigation.navigate('detail', {
@@ -100,19 +95,22 @@ function SearchPage({navigation}: any): JSX.Element {
             ))}
           </ScrollView>
 
-          <Text>blog's Articles</Text>
           {searchValue === true ? (
-            <View style={style.TrendingPosts}>
-              {filteredItems.map((val: any) => (
-                <TouchableOpacity onPress={() => handleNavigationToScreen(val)}>
-                  <CardTrending
-                    title={val.title}
-                    time={val.readable_publish_date}
-                    user={[val.user]}
-                  />
-                </TouchableOpacity>
-              ))}
-            </View>
+            <>
+              <Text>blog's Articles</Text>
+              <View style={style.TrendingPosts}>
+                {handleFilter.map((val: any) => (
+                  <TouchableOpacity
+                    onPress={() => handleNavigationToScreen(val)}>
+                    <CardTrending
+                      title={val.title}
+                      time={val.readable_publish_date}
+                      user={[val.user]}
+                    />
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </>
           ) : (
             <View style={style.TrendingPosts}>
               <ScrollView style={style.scrollView} horizontal={false}>
